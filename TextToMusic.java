@@ -5,10 +5,9 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 class TextToMusic{
 
-	File file = new File("\\Users\\belkn\\eclipse-workspace\\TextToMusic\\src\\text.txt");
 	ArrayList<Note> song = new ArrayList<Note>();
 	
-	public void runner() throws FileNotFoundException {
+	public void runner(File file) throws FileNotFoundException {
 		Scanner text = new Scanner(file);
 		while(text.hasNext()) {
 			ArrayList<String> line = new ArrayList<String>(Arrays.asList(text.next().split(" ")));
@@ -24,199 +23,180 @@ class TextToMusic{
 		String note = "A";
 		int octave = 1;
 		int length = 1;
-		String condition = "natural";
+		String condition = "";
 		
 		//determine note and octave
-		if(s.substring(0,1).equals("e")) {
-			note ="A";
-			octave = 1;
+		switch (s.substring(0, 1)) {
+			case "e":
+				note = "A";
+				octave = 1;
+				break;
+			case "m":
+				note = "A";
+				octave = 2;
+				break;
+			case "w":
+				note = "A";
+				octave = 3;
+				break;
+			case "t":
+				note = "B";
+				octave = 1;
+				break;
+			case "u":
+				note = "B";
+				octave = 2;
+				break;
+			case "f":
+				note = "B";
+				octave = 3;
+				break;
+			case "a":
+				note = "C";
+				octave = 1;
+				break;
+			case "c":
+				note = "C";
+				octave = 2;
+				break;
+			case "g":
+				note = "C";
+				octave = 3;
+				break;
+			case "z":
+				note = "C";
+				octave = 1;
+				break;
+			case "o":
+				note = "D";
+				octave = 1;
+				break;
+			case "l":
+				note = "D";
+				octave = 2;
+				break;
+			case "y":
+				note = "D";
+				octave = 3;
+				break;
+			case "q":
+				note = "D";
+				octave = 1;
+				break;
+			case "i":
+				note = "E";
+				octave = 1;
+				break;
+			case "d":
+				note = "E";
+				octave = 2;
+				break;
+			case "p":
+				note = "E";
+				octave = 3;
+				break;
+			case "x":
+				note = "E";
+				octave = 1;
+				break;
+			case "n":
+				note = "F";
+				octave = 1;
+				break;
+			case "r":
+				note = "F";
+				octave = 2;
+				break;
+			case "b":
+				note = "F";
+				octave = 3;
+				break;
+			case "j":
+				note = "F";
+				octave = 1;
+				break;
+			case "s":
+				note = "G";
+				octave = 1;
+				break;
+			case "h":
+				note = "F";
+				octave = 2;
+				break;
+			case "v":
+				note = "F";
+				octave = 3;
+				break;
+			case "k":
+				note = "F";
+				octave = 1;
+				break;
 		}
-		if(s.substring(0,1).equals("m")) {
-			note ="A";
-			octave = 2;
-		}
-		if(s.substring(0,1).equals("w")) {
-			note ="A";
-			octave = 3;
-		}
-		if(s.substring(0,1).equals("t")) {
-			note ="B";
-			octave = 1;
-		}
-		if(s.substring(0,1).equals("u")) {
-			note ="B";
-			octave = 2;
-		}
-		if(s.substring(0,1).equals("f")) {
-			note ="B";
-			octave = 3;
-		}
-		if(s.substring(0,1).equals("a")) {
-			note ="C";
-			octave = 1;
-		}
-		if(s.substring(0,1).equals("c")) {
-			note ="C";
-			octave = 2;
-		}
-		if(s.substring(0,1).equals("g")) {
-			note ="C";
-			octave = 3;
-		}
-		if(s.substring(0,1).equals("z")) {
-			note ="C";
-			octave = 1;
-		}
-		if(s.substring(0,1).equals("o")) {
-			note ="D";
-			octave = 1;
-		}
-		if(s.substring(0,1).equals("l")) {
-			note ="D";
-			octave = 2;
-		}
-		if(s.substring(0,1).equals("y")) {
-			note ="D";
-			octave = 3;
-		}
-		if(s.substring(0,1).equals("q")) {
-			note ="D";
-			octave = 1;
-		}
-		if(s.substring(0,1).equals("i")) {
-			note ="E";
-			octave = 1;
-		}
-		if(s.substring(0,1).equals("d")) {
-			note ="E";
-			octave = 2;
-		}
-		if(s.substring(0,1).equals("p")) {
-			note ="E";
-			octave = 3;
-		}
-		if(s.substring(0,1).equals("x")) {
-			note ="E";
-			octave = 1;
-		}
-		if(s.substring(0,1).equals("n")) {
-			note ="F";
-			octave = 1;
-		}
-		if(s.substring(0,1).equals("r")) {
-			note ="F";
-			octave = 2;
-		}
-		if(s.substring(0,1).equals("b")) {
-			note ="F";
-			octave = 3;
-		}
-		if(s.substring(0,1).equals("j")) {
-			note ="F";
-			octave = 1;
-		}
-		if(s.substring(0,1).equals("s")) {
-			note ="G";
-			octave = 1;
-		}
-		if(s.substring(0,1).equals("h")) {
-			note ="F";
-			octave = 2;
-		}
-		if(s.substring(0,1).equals("v")) {
-			note ="F";
-			octave = 3;
-		}
-		if(s.substring(0,1).equals("k")) {
-			note ="F";
-			octave = 1;
-		}
+		
+
+		// Convert above to switch statement
+		// switch (s.substring(0,1)) {
 		
 		//determine condition
 		if(s.length()>1) {
-			if(s.substring(1,2).equals("a")) {
-				condition = "natural";
+			switch (s.substring(1, 2)) {
+				case "a":
+				case "c":
+				case "d":
+				case "e":
+				case "g":
+				case "h":
+				case "q":
+				case "z":
+				case "i":
+					condition = "";
+					break;
+				case "r":
+				case "l":
+				case "u":
+				case "w":
+				case "p":
+				case "v":
+				case "j":
+					condition = "#";
+					break;
+				case "m":
+				case "f":
+				case "y":
+				case "b":
+				case "k":
+				case "x":
+					condition = "b";
+					break;
+			}				
+		}
+
+		// Adjust sharp notes to their flat counterparts
+		if (condition.equals("#")) {
+			switch (note) {
+				case "A":
+					note = "B";
+					break;
+				case "B":
+					note = "C";
+					break;
+				case "C":
+					note = "D";
+					break;
+				case "D":
+					note = "E";
+					break;
+				case "E":
+					note = "F";
+					break;
+				case "F":
+					note = "G";
+					break;
+				case "G":
+					note = "A";
+					break;
 			}
-			if(s.substring(1,2).equals("b")) {
-				condition = "natural";
-			}
-			if(s.substring(1,2).equals("c")) {
-				condition = "natural";
-			}
-			if(s.substring(1,2).equals("d")) {
-				condition = "natural";
-			}
-			if(s.substring(1,2).equals("e")) {
-				condition = "natural";
-			}
-			if(s.substring(1,2).equals("f")) {
-				condition = "natural";
-			}
-			if(s.substring(1,2).equals("g")) {
-				condition = "natural";
-			}
-			if(s.substring(1,2).equals("h")) {
-				condition = "natural";
-			}
-			if(s.substring(1,2).equals("q")) {
-				condition = "natural";
-			}
-			if(s.substring(1,2).equals("z")) {
-				condition = "natural";
-			}
-			if(s.substring(1,2).equals("i")) {
-				condition = "natural";
-			}
-			
-			if(s.substring(1,2).equals("r")) {
-				condition = "sharp";
-			}
-			if(s.substring(1,2).equals("l")) {
-				condition = "sharp";
-			}
-			if(s.substring(1,2).equals("u")) {
-				condition = "sharp";
-			}
-			if(s.substring(1,2).equals("w")) {
-				condition = "sharp";
-			}
-			if(s.substring(1,2).equals("g")) {
-				condition = "sharp";
-			}
-			if(s.substring(1,2).equals("p")) {
-				condition = "sharp";
-			}
-			if(s.substring(1,2).equals("v")) {
-				condition = "sharp";
-			}
-			if(s.substring(1,2).equals("j")) {
-				condition = "sharp";
-			}
-			if(s.substring(1,2).equals("d")) {
-				condition = "flat";
-			}
-			if(s.substring(1,2).equals("c")) {
-				condition = "flat";
-			}
-			if(s.substring(1,2).equals("m")) {
-				condition = "flat";
-			}
-			if(s.substring(1,2).equals("f")) {
-				condition = "flat";
-			}
-			if(s.substring(1,2).equals("y")) {
-				condition = "flat";
-			}
-			if(s.substring(1,2).equals("b")) {
-				condition = "flat";
-			}
-			if(s.substring(1,2).equals("k")) {
-				condition = "flat";
-			}
-			if(s.substring(1,2).equals("x")) {
-				condition = "flat";
-			}
-			
+			condition = "b";
 		}
 		
 		//determines length
@@ -238,18 +218,20 @@ class TextToMusic{
 		song.add(new Note(length, octave, note, condition));
 		
 		//adds necessary rests
-		if(s.substring(s.length()-1,s.length()).equals(".")) {
-			song.add(new Note(1));
-		}
-		if(s.substring(s.length()-1,s.length()).equals(",")) {
-			song.add(new Note(2));
-		}
-		if(s.substring(s.length()-1,s.length()).equals("?")) {
-			song.add(new Note(3));
-		}
-		if(s.substring(s.length()-1,s.length()).equals("!")) {
-			song.add(new Note(4));
-		}
+		switch (s.substring(s.length() - 1)) {
+			case ".":
+				song.add(new Note(1));
+				break;
+			case ",":
+				song.add(new Note(2));
+				break;
+			case "?":
+				song.add(new Note(3));
+				break;
+			case "!":
+				song.add(new Note(4));
+				break;
+		}		
 	}
 	
 	//returns the song array

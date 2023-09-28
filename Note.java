@@ -10,7 +10,7 @@ public class Note {
 		length = l;
 		octave = 1;
 		note = "R";
-		condition = "natural";
+		condition = "";
 	}
 	public Note(int l,int o,String n, String c) {
 		length = l;
