@@ -1,4 +1,4 @@
-public class Note {
+public class Note implements Comparable<Note> {
 	//determined by word length
 	private int length;
 	//determined by first letter
@@ -44,5 +44,23 @@ public class Note {
 
 	public String toString() {
 		return note+octave+" "+condition+" "+length; 
+	}
+
+	public int compareTo(Note n) {
+		if (this.octave != n.octave) {
+			return this.octave - n.octave;
+		} else if (this.note.equals("R")) {
+			return -1;
+		} else if (n.note.equals("R")) {
+			return 1;
+		} else if (this.note.equals(n.note)) {
+			if (this.condition.equals(n.condition)) {
+				return 1;
+			} else {
+				return -this.condition.compareTo(n.condition);
+			}
+		} else {
+			return 1;
+		}
 	}
 }
