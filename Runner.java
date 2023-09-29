@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Runner {
 	public static void main(String[]args) throws IOException {
 		// Remove any finalSong.mp3 files if there are any
-		File f = new File(".\\finalSong.mp3");
+		File f = new File(".\\finalSong.aiff");
 		if (f.exists()) {
 			f.delete();
 		}
@@ -20,8 +20,27 @@ public class Runner {
 			answer2 = sc.nextLine();
 		}
 
+		// Get the tempo
+		System.out.print("Enter the tempo of the song (in bpm). Nothing for default (60 bpm): ");
+		String tempo;
+		do {
+			tempo = sc.nextLine();
+			if (tempo.length() == 0 || isInteger(tempo)) {
+				break;
+			} else {
+				System.out.print("Please enter a valid integer: ");
+			}
+		} while (true);
+
+		if (tempo.length() == 0) {
+			tempo = "60";
+		}
+
+		int tempoInt = Integer.parseInt(tempo);
+
 		// Run program logic
 		File file = getUserFile(answer.equals("y"), answer2.equals("y"));
+
 		// Close scanner if it's open
 		if (sc != null) {
 			sc.close();
@@ -29,7 +48,7 @@ public class Runner {
 		TextToMusic run = new TextToMusic();
 		run.runner(file);
 		
-		SongConst test = new SongConst(run.getSong());
+		SongConst test = new SongConst(run.getSong(), tempoInt, 100);
 		test.fileBuilder(file.getName());
 		
 	}
@@ -85,5 +104,14 @@ public class Runner {
 
 		sc.close();
 		return file;
+	}
+
+	static private boolean isInteger(String s) {
+		try {
+			Integer.parseInt(s);
+		} catch(NumberFormatException e) {
+			return false;
+		}
+		return true;
 	}
 }
