@@ -3,11 +3,7 @@ import java.io.FileOutputStream;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.SequenceInputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -30,32 +26,37 @@ public class SongConst {
 		song = s;
 	}
 
-	// Parse through the Note list in the song and add the appropriate note to an mp3 file
+	/* Parse through the Note list in the song and add the appropriate note to 
+	 * an mp3 file
+	 */ 
 	public void fileBuilder(String fileName) {
+		// TODO: switch files to wav format
 
-		// Loop through song notes and add the appropriate note to the mp3 file
+		// Create the output stream for the final file
 		FileOutputStream fostream = null;
 		try {
 			fostream = new FileOutputStream(".\\finalSong.mp3");
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
-		// TODO: handle note logic properly
+		// Loops through notes and adds them to the fostream
 		for (Note n : song) {
 			for (int i = n.getLength(); i > 0; i--) {
-				// Make map name
-				String mapName = ("" + n.getNote() + n.getCondition() 
+				// Make note file name
+				String fName = ("" + n.getNote() + n.getCondition() 
 									+ n.getOctave() + ".mp3");
-				File f = new File(".\\piano-mp3\\" + mapName);
+				File f = new File(".\\piano-mp3\\" + fName);
+				// Check if file exists
 				if (!f.exists()) {
-					System.out.println("File does not exist");
+					System.out.println("Error: Note file does not exist. " +
+								"Skipping and continuing with rest of song.");
+					continue;
 				}
+				// Append the note to the final file
 				try {
-					appendmp3file(fostream, new FileInputStream(f), n);
+					appendmp3file(fostream, new FileInputStream(f));
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -65,14 +66,15 @@ public class SongConst {
 		try {
 			fostream.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	// Append the given note to the mp3 file
-	private void appendmp3file(FileOutputStream fos, InputStream fis, Note n) {
-		// TODO Auto-generated method stub
+	/* Append the given fis to the mp3 file. 
+	 * fis will be a note audio file
+	 */
+	private void appendmp3file(FileOutputStream fos, InputStream fis) {
+		// Write the file to the output stream
 		try {
 			int read = 0;
 			byte[] bytes = new byte[1024];
