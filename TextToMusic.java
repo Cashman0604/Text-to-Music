@@ -4,6 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/* TextToMusic.java
+ * Takes a text file and converts it into a song
+ * based on my own arbitrary rules.
+ * Stores the song as an ArrayList of Notes
+ * Contains runner, noted, getSong, and toString
+ */
 class TextToMusic{
 	// List of all notes in the text file
 	ArrayList<Note> song = new ArrayList<Note>();

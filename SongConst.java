@@ -9,6 +9,12 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioFileFormat;
 
+/* SongConst.java
+ * Takes a list of notes, a tempo, and a volume and creates a song
+ * The song is built off of piono note .aiff files and exported as .aiff
+ * Contains constructors, fileBuilder, appendmp3file, and findZeroCrossingIndex
+ * Song file is stored in current directory as finalSong.aiff
+ */
 public class SongConst {
 	static String outputFileName = ".\\finalSong.aiff";
 	int tempo;
