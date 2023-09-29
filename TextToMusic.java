@@ -3,14 +3,17 @@ import java.util.Arrays;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-class TextToMusic{
 
+class TextToMusic{
+	// List of all notes in the text file
 	ArrayList<Note> song = new ArrayList<Note>();
 	
+	// Reads the text file and adds notes to the song array
 	public void runner(File file) throws FileNotFoundException {
 		Scanner text = new Scanner(file);
 		while(text.hasNext()) {
-			ArrayList<String> line = new ArrayList<String>(Arrays.asList(text.next().split(" ")));
+			ArrayList<String> line = new ArrayList<String>(Arrays.asList(
+											text.next().split(" ")));
 			for(int i = 0; i< line.size();i++) {
 				noted(line.get(i));
 			}
@@ -20,12 +23,22 @@ class TextToMusic{
 	
 	//Determines the characteristics of the note
 	public void noted(String s) {
+		// Protect against empty strings
+		if (s.length() == 0) {
+			return;
+		}
+
+		// Base default note
 		String note = "A";
 		int octave = 1;
 		int length = 1;
 		String condition = "";
+
+		// Set all to lower case for logic
+		s = s.toLowerCase();
 		
-		//determine note and octave
+		// Determine note and octave //
+		// based on first letter
 		switch (s.substring(0, 1)) {
 			case "e":
 				note = "A";
@@ -133,11 +146,8 @@ class TextToMusic{
 				break;
 		}
 		
-
-		// Convert above to switch statement
-		// switch (s.substring(0,1)) {
-		
-		//determine condition
+		// Determine condition (sharp, flat, natural) //
+		// based on second letter if any
 		if(s.length()>1) {
 			switch (s.substring(1, 2)) {
 				case "a":
@@ -171,35 +181,53 @@ class TextToMusic{
 			}				
 		}
 
-		// Adjust sharp notes to their flat counterparts
+		// Adjust sharp notes to their flat counterparts //
+		// * No audio files for sharps, so we use flat counterparts instead
 		if (condition.equals("#")) {
 			switch (note) {
 				case "A":
 					note = "B";
+					condition = "b";
 					break;
 				case "B":
 					note = "C";
+					condition = "";
 					break;
 				case "C":
 					note = "D";
+					condition = "b";
 					break;
 				case "D":
 					note = "E";
+					condition = "b";
 					break;
 				case "E":
 					note = "F";
+					condition = "";
 					break;
 				case "F":
 					note = "G";
+					condition = "b";
 					break;
 				case "G":
 					note = "A";
+					condition = "b";
 					break;
+			}	
+		}
+
+		// Adjust flat C or F notes to their natural counterparts //
+		if (condition.equals("b")) {
+			if (note.equals("C")) {
+				note = "B";
+				condition = "";
+			} else if (note.equals("F")) {
+				note = "E";
+				condition = "";
 			}
-			condition = "b";
 		}
 		
-		//determines length
+		// Determines note length //
 		int size = 0;
 		char[] splitWord = s.toCharArray();
 		for(char c:splitWord) {
@@ -217,15 +245,17 @@ class TextToMusic{
 		}
 		song.add(new Note(length, octave, note, condition));
 		
-		//adds necessary rests
+		// Adds necessary rests //
 		switch (s.substring(s.length() - 1)) {
 			case ".":
 				song.add(new Note(1));
 				break;
 			case ",":
+			case "\'":
 				song.add(new Note(2));
 				break;
 			case "?":
+			case "\"":
 				song.add(new Note(3));
 				break;
 			case "!":
@@ -234,11 +264,19 @@ class TextToMusic{
 		}		
 	}
 	
-	//returns the song array
+	// Returns the song array created
 	public ArrayList<Note> getSong(){
+		// Protect against empty song
+		if (song.size() == 0) {
+			System.out.println("Song is empty. Call runner first.");
+			return null;
+		}
 		return song;
 	}
 	
+	/* Prints out the song array
+	 * Kinda pointless, but good for debugging
+	 */
 	public String toString() {
 		String output = "";
 		for(Note s: song) {

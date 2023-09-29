@@ -10,34 +10,79 @@ public class Runner {
 			f.delete();
 		}
 
-		String fileName = "text.txt";
-		File file = getUserFile(true);
+		// Get the file from the user or default to text.txt
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Would you like to use the default file of text.txt? (y/n) ");
+		String answer = sc.nextLine();
+		String answer2 = "n";
+		if (!answer.equals("y")) { 
+			System.out.print("Would you like to see instructions on how to input a file? (y/n) ");
+			answer2 = sc.nextLine();
+		}
+
+		// Run program logic
+		File file = getUserFile(answer.equals("y"), answer2.equals("y"));
+		// Close scanner if it's open
+		if (sc != null) {
+			sc.close();
+		}
 		TextToMusic run = new TextToMusic();
 		run.runner(file);
 		
 		SongConst test = new SongConst(run.getSong());
-		test.fileBuilder(fileName);
+		test.fileBuilder(file.getName());
 		
 	}
 
-	// Get a file from the user. If defaultFile is true, then use the default 
-	// file of text.txt
-	// If defaultFile is false, then ask the user for a file name and make sure
-	// it exists
-	private static File getUserFile(boolean defaultFile) {
+	/* Get a file from the user. If defaultFile is true, then use the default 
+	 * file of text.txt
+	 * If defaultFile is false, then ask the user for a file name and make sure
+	 * it exists in the directory
+	 */
+	private static File getUserFile(boolean defaultFile, boolean instructions) {
 		if (defaultFile) {
 			return new File(".\\text.txt");
 		}
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter the name of the file you want to convert to music: ");
-		String fileName = sc.nextLine();
-		File file = new File(".\\" + fileName);
-		while (!file.exists()) {
-			System.out.println("File does not exist. Please enter a valid " + 
-								"file name in the directory: ");
-			fileName = sc.nextLine();
-			file = new File(".\\" + fileName);
+
+		if (instructions) {
+			// Instructions for users to input file name
+			System.out.println("Enter the name of the file you want to convert to music. ");
+			System.out.println("If the file is in the same directory as this program, " + 
+								"then just enter the file name. ");
+			System.out.println("If the file is in a different directory, then enter the " +
+								"file path. (Can be in format .\\text.txt or C:\\Users\\... " + 
+								"[For Mac users, the / file path should work])");
+			System.out.println("If you do not enter a file name, then the default file " +
+								"of text.txt will be used. ");
 		}
+		System.out.print("\nEnter file name: ");
+
+
+		File file;
+		String fileName;
+		do {
+			fileName = sc.nextLine();
+			if (fileName.length() == 0) {
+				file = new File(".\\text.txt");
+			} else if (fileName.substring(0, 1).equals(".")) {
+				file = new File(fileName);
+			} else if (fileName.substring(1, 2).equals(":")) {
+				file = new File(fileName);
+			} else if (fileName.substring(0, 1).equals("/")) {
+				file = new File(fileName);
+				System.out.println("Either you're using a Mac or you're trying to " +
+									"break my program. Either way, you're wrong.");
+			} else {
+				file = new File(".\\" + fileName);
+			}
+			
+			if (!file.exists()) {
+				System.out.print("File does not exist. Please enter a valid " + 
+									"file name in the directory: ");
+			}
+		} while (!file.exists());
+
 		sc.close();
 		return file;
 	}
