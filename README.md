@@ -15,3 +15,6 @@ Also, the output files are probably better than AI music :)
 Known Issues:
 - No Mac Support: I use Windows and I'm too lazy to implement it for Mac systems, so L
 - Popping Between Notes: Literally have no idea why this is happening. ChatGPT can't fix this mess
+
+Credits:
+- AIFF sound files provided by 

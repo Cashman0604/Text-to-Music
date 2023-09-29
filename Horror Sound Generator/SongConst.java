@@ -1,8 +1,6 @@
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -87,12 +85,6 @@ public class SongConst {
 			int frameSize = audioFormat.getFrameSize();
 			// Get the frame rate
 			float frameRate = audioFormat.getFrameRate();
-			// Get the frame length
-			long frameLength = decompressedStream.getFrameLength();
-			// Get the length in seconds
-			double durationInSeconds = (frameLength + 0.0) / frameRate;
-			// Get the number of frames
-			long numberOfFrames = (long) (frameRate * durationInSeconds);
 			// Frames to skip first four seconds
 			long framesToSkip = (long) (frameRate * 4);
 			// Number of frames to read based on the length of the note

@@ -83,15 +83,10 @@ public class SongConst {
 			AudioFormat audioFormat = ais.getFormat();
 			// Get the number of bytes per frame
 			int bytesPerFrame = audioFormat.getFrameSize();
-			// Get the number of bytes to skip first 4 seconds
-			long numBytesSkip = (long) (audioFormat.getFrameRate() * 1 * bytesPerFrame);
 			// Get number of bytes to read
-			long numBytesRead = (long) (audioFormat.getFrameRate() * n.getLength() *
-					bytesPerFrame * 60 / tempo);
-	
-			// Skip the first 4 seconds
-			// byte[] skip = new byte[(int) numBytesSkip];
-			// ais.read(skip);
+			long numBytesRead = (long) (audioFormat.getFrameRate() * 
+							n.getLength() * bytesPerFrame * 60 / tempo);
+
 	
 			// Read the bytes
 			byte[] bytes = new byte[(int) numBytesRead];
@@ -107,14 +102,23 @@ public class SongConst {
 			for (int i = 0; i < bytes.length; i++) {
 				bytes[i] = (byte) (bytes[i] * volume);
 			}
+
+			while (ais.read() != -1) {
+				// Run through remaining data
+			}
+			ais.close();
 	
 			// Write the bytes to the output stream
 			AudioInputStream ais2 = new AudioInputStream(new ByteArrayInputStream(bytes),
 					audioFormat, numBytesRead);
 			AudioSystem.write(ais2, AudioFileFormat.Type.AIFF, fos);
 			fos.flush();
+
+			while (ais2.read() != -1) {
+				// Run through remaining data
+			}
 			ais2.close();
-			ais.close();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
