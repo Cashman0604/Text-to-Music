@@ -12,4 +12,4 @@ Known Issues:
 - Popping Between Notes: Literally have no idea why this is happening. ChatGPT can't fix this mess
 
 Credits:
-- AIFF sound files provided by 
+- AIFF sound files provided by https://theremin.music.uiowa.edu/MISpiano.html
