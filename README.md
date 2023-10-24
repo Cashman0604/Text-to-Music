@@ -13,3 +13,7 @@ Known Issues:
 
 Credits:
 - AIFF sound files provided by https://theremin.music.uiowa.edu/MISpiano.html
+
+Extra:
+- An older non-working version can be found here https://github.com/Cashman0604/Horror-Sounds/
+   - This version makes horror-like sounds that I thought could be cool to keep around.
